@@ -27,6 +27,14 @@ public class Quiz {
 	
 	public void takeQuiz() {
 		//FIXME
+		int earnedPoints = 0;
+		for (int i = 0; i < questions.length; i++) {
+			questions[i].displayPrompt();
+			String userAnswer = getUserAnswer();
+			earnedPoints += questions[i].checkAnswer(userAnswer);
+			System.out.println("Question " + (i+1) + ": You earned " + questions[i].checkAnswer(userAnswer) + " points.");
+		}
+		System.out.println("You earned a total of " + earnedPoints + " out of " + getTotalPoints() + " points.");
 	}
 	
 	public static void main(String[] args) {
@@ -38,7 +46,8 @@ public class Quiz {
 		choices = new String[] {"instance variables", "git", "methods", "eclipse"};
 		Question selectAll = new SelectAllQuestion("Select all of the following that can be found within a class:", "13", choices);
 
-		Question[] questions = {q, multipleChoice, selectAll}; //create and add more questions!
+		Question q2 = new Question("What unit number is the next unit?","9",20);
+		Question[] questions = {q, multipleChoice, selectAll, q2}; //create and add more questions!
 		
 		Quiz studio8quiz = new Quiz(questions);
 		studio8quiz.takeQuiz();
